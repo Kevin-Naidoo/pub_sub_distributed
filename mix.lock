@@ -1,0 +1,3 @@
+%{
+  "pubsub": {:hex, :pubsub, "1.1.2", "8b2a90eb5455bf205348fcb521bf7597d3a57458cf0216d72fcc1f6c41cf0fab", [:mix], [], "hexpm", "bd0593bd0f593c31c2fb5e30bde697cb94bdf952873dc4625b40f078e63e5243"},
+}
