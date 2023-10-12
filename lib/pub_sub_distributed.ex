@@ -4,22 +4,24 @@ defmodule PubSubDistributed do
   @moduledoc """
   Documentation for `PubSubDistributed`.
   """
-    def start(client_name) do
-      spawn(fn -> loop(client_name) end)
+    def start() do
+      pid = spawn(fn -> loop() end)
+      name_pid(pid)
     end
 
-    def loop(name) do
+    defp name_pid(pid) do
+      :global.register_name(:client, pid)
+    end
+
+    def loop() do
       receive do
         message ->
-          IO.puts "#{name} received `#{message}`"
-
-          loop(name)
+          IO.puts "I received `#{message}`"
+          loop()
       end
     end
 
     def generate() do
       Logger.error("Hello Im Back!!!!")
-      :logger.alert("Hello A")
-      Logger.warning("Hello alert")
     end
 end

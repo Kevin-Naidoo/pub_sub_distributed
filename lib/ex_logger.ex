@@ -37,7 +37,9 @@ defmodule ExLogger do
 
   def handle_event({level, _gl, {Logger, msg, timestamps, _details}}, %{level: log_level} = state) do
     if meet_level?(level, log_level) do
+      subscribe_to_topic()
       publish_to_topic(level, msg, timestamps, state)
+
     end
 
     {:ok, state}
@@ -54,11 +56,15 @@ defmodule ExLogger do
   end
 
 
-  defp publish_to_topic(level, message, timestamps, %{publisher_node: publisher_node} = state) do
+  defp publish_to_topic(_level, message, _timestamps, %{publisher_node: _publisher_node} = _state) do
     message = flatten_message(message) |> Enum.join("\n")
     PubSub.publish(:logs, message)
     IO.puts ("I recieved a log #{message}")
+  end
 
+  defp subscribe_to_topic() do
+    PubSub.start_link()
+    PubSub.subscribe(:global.whereis_name(:client), :logs)
   end
 
   defp flatten_message(msg) do
