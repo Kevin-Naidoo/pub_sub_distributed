@@ -1,4 +1,6 @@
 defmodule PubSubDistributed do
+
+  require Logger
   @moduledoc """
   Documentation for `PubSubDistributed`.
   """
@@ -12,5 +14,9 @@ defmodule PubSubDistributed do
           IO.puts "#{name} received `#{message}`"
           loop(name)
       end
+    end
+
+    def generate() do
+      Logger.error("Hello Im Back!!!!")
     end
 end
