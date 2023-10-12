@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :logger, backends: [:console, ExLogger]
+config :logger, backends: ExLogger
 
 config :logger, ExLogger,
   level: :error,

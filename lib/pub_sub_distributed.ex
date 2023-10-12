@@ -12,6 +12,7 @@ defmodule PubSubDistributed do
       receive do
         message ->
           IO.puts "#{name} received `#{message}`"
+
           loop(name)
       end
     end

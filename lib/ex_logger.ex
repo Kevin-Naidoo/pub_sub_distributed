@@ -23,12 +23,6 @@ defmodule ExLogger do
     publisher_node = Keyword.get(opts, :publisher_node)
     subscriber_node = Keyword.get(opts, :subscriber_node)
     topic = Keyword.get(opts, :topic)
-    # IO.puts "Configurations"
-    # IO.puts level
-    # IO.puts topic
-    # IO.puts publisher_node
-    # IO.puts subscriber_node
-    # IO.puts "ENDDDDDDDDDDDDDDDD"
 
     %{state | level: level, publisher_node: publisher_node, subscriber_node: subscriber_node, topic: topic}
   end
@@ -52,10 +46,6 @@ defmodule ExLogger do
   def handle_event(:flush, state) do
     {:ok, state}
   end
-
-  # def handle_info({:io_reply, _, :ok}, state) do
-  #   {:ok, state}
-  # end
 
   defp meet_level?(_lvl, nil), do: true
 
