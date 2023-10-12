@@ -19,5 +19,7 @@ defmodule PubSubDistributed do
 
     def generate() do
       Logger.error("Hello Im Back!!!!")
+      :logger.alert("Hello A")
+      Logger.warning("Hello alert")
     end
 end
