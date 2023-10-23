@@ -56,9 +56,14 @@ defmodule ExLogger do
   end
 
 
-  defp publish_to_topic(_level, message, _timestamps, %{publisher_node: _publisher_node} = _state) do
+  defp publish_to_topic(level, message, _timestamps, %{publisher_node: publisher_node} = _state) do
+    #IO.inspect(timestamps)
     message = flatten_message(message) |> Enum.join("\n")
-    PubSub.publish(:logs, message)
+    timestamp = DateTime.utc_now()
+    formatted_string = DateTime.to_string(timestamp)
+
+    log = "#{publisher_node} #{formatted_string} [#{level}] #{message}"
+    PubSub.publish(:logs, log)
   end
 
   defp subscribe_to_topic() do

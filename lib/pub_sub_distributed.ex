@@ -1,6 +1,7 @@
 defmodule PubSubDistributed do
 
   require Logger
+  #import Odna.LogHelpers
   @moduledoc """
   Documentation for `PubSubDistributed`.
   """
@@ -18,6 +19,7 @@ defmodule PubSubDistributed do
       receive do
         message ->
           IO.puts message
+          #:timer.sleep(1000)
           ets_store(message)
           loop()
       end
@@ -25,10 +27,7 @@ defmodule PubSubDistributed do
 
     defp ets_store(message) do
       :ets.insert_new(:logs_table, {message})
-      :ets.match(:logs_table, :"$1")
-    end
-
-    def generate() do
-      Logger.error("Hello Im !!!!")
+      con = :ets.tab2list(:logs_table)
+      con
     end
 end
